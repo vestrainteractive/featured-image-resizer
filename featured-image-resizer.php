@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Replace Featured Images with Featured-Image Size
-Plugin URI: https://github.com/dietrichmd/wordpress_plugins/
+Plugin URI: https://github.com/vestrainteractive/featured-image-resizer
 Description: Replaces all featured images with alternate size versions.  Simply replace the featured-image on line 25 with your image size, then activate.
 Version: 1.0
 Author: Vestra Interactive
