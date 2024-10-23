@@ -38,11 +38,24 @@ function replace_featured_images() {
 register_activation_hook(__FILE__, 'replace_featured_images');
 
 // Include the GitHub Updater class
-if ( file_exists( plugin_dir_path( __FILE__ ) . 'class-github-updater.php' ) ) {
-    require_once plugin_dir_path( __FILE__ ) . 'class-github-updater.php';
-}
+add_action('plugins_loaded', function() {
+    $file = plugin_dir_path( __FILE__ ) . 'class-github-updater.php';
 
-// Initialize the updater
-add_action( 'init', function() {
-    new GitHub_Updater( 'featured-image-resizer', 'vestrainteractive/featured-image-resizer' ); // Replace with your plugin slug and folder name
+    if ( file_exists( $file ) ) {
+        require_once $file;
+        error_log( 'GitHub Updater file included successfully.' );
+    } else {
+        error_log( 'GitHub Updater file not found at: ' . $file );
+    }
+
+    // Ensure the class exists before instantiating
+    if ( class_exists( 'GitHub_Updater' ) ) {
+        // Initialize the updater
+        new GitHub_Updater( 'featured-image-resizer', 'https://github.com/vestrainteractive/featured-image-resizer', '1.0.0' ); // Replace with actual values
+        error_log( 'GitHub Updater class instantiated.' );
+    } else {
+        error_log( 'GitHub_Updater class not found.' );
+    }
 });
+
+?>
